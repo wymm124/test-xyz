@@ -1,0 +1,31 @@
+server:
+  port: 8080
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    # 生产者
+    producer:
+      # 设置大于 0 的值，则客户端会将发送失败的记录重新发送
+      retries: 3
+      # 发送端批量发送的的缓存大小
+      batch-size: 16384
+      # 生产者能够使用的内存缓冲的大小
+      buffer-memory: 33554432
+      # 必须有多少个分区副本接收到了消息，生产者才会认为消息是发送成功
+      acks: 1
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    # 消费者
+    consumer:
+      # 组信息
+      group-id: default-group
+      # 自动提交
+      enable-auto-commit: false
+      # 新消费组的新消费者，第一次从最开始消费消息
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # 一次最多 poll 多少条消息
+      max-poll-records: 500
+    listener:
+      ack-mode: MANUAL_IMMEDIATE
