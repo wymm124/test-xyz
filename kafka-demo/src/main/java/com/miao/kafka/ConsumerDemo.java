@@ -4,7 +4,6 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.time.Duration;
@@ -32,8 +31,6 @@ public class ConsumerDemo {
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
         // 消费者订阅主题列表
         consumer.subscribe(Arrays.asList(TOPIC_NAME));
-        // 消费指定分区
-//        consumer.assign(Arrays.asList(new TopicPartition(TOPIC_NAME, 0)));
 
         while (true) {
             // poll(): 拉取消息的长轮询
